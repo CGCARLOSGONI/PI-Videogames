@@ -17,12 +17,19 @@
 //     =====`-.____`.___ \_____/___.-`___.-'=====
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const axios = require('axios');
 const server = require('./src/app.js');
-const { conn } = require('./src/db.js');
+const { conn, Genre } = require('./src/db.js');
+const getGenre = require('./src/controllers/getGenre.js')
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
-  server.listen(3001, () => {
+conn.sync({ force: false }).then(() => {
+  server.listen(3001, async () => {
     console.log('%s listening at 3001'); // eslint-disable-line no-console
+    const dbGenre = await Genre.findAll()
+    if(!dbGenre.length){
+      getGenre();
+    }
+    
   });
 });
