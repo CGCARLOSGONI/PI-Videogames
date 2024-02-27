@@ -1,0 +1,19 @@
+.container {
+    
+    display: flex;
+    
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+   
+    
+}
+
+.option {
+    height: 30px;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    
+}
