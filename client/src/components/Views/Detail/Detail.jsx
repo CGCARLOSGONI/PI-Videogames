@@ -11,19 +11,19 @@ const Detail = () => {
   const dispatch = useDispatch();
   const idVideo = useSelector((state) => state.getById);
   const [loading, setloading] = useState(true);
+  console.log("idVideo", idVideo);
   useEffect(() => {
     dispatch(getById(id))
-    .then(() => setloading(false))
-    .catch(() => setloading(false))
+      .then(() => setloading(false))
+      .catch(() => setloading(false));
     return () => dispatch(getClean());
-  }, [dispatch, id])
+  }, [dispatch, id]);
 
   return (
     idVideo && (
       <div>
-        
         {loading ? (
-          <div className={style.loading} >LOADING...</div>
+          <div className={style.loading}>LOADING...</div>
         ) : (
           <div className={style.container}>
             <div>

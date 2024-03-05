@@ -62,15 +62,19 @@ export const searchName = (name) => {
 };
 
 export const filterVideogames = (payload) => {
+  console.log("payload", payload);
   return async (dispatch) => {
-    const { orderAlphabetic, genreId } = payload;
+    const { orderAlphabetic, genreName, source } = payload;
     const queryParameters = {};
 
     if (orderAlphabetic) {
       queryParameters.orderAlphabetic = orderAlphabetic;
     }
-    if (genreId) {
-      queryParameters.genreId = genreId;
+    if (genreName) {
+      queryParameters.genreName = genreName;
+    }
+    if (source) {
+      queryParameters.source = source.includes("DB") ? "DB" : "API";
     }
     try {
       const { data } = await axios.get("http://localhost:3000/videogames", {
@@ -87,7 +91,7 @@ export const createVideogame = (newVideogame) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.post("http://localhost:3000/videogames", newVideogame);
-      console.log("data", data)
+      console.log("data", data);
     } catch (error) {
       console.log(error);
     }

@@ -11,9 +11,9 @@ const validation = (error) => {
     errors.name = "Invalid characters";
   }
 
-  // if (!/^(http|https):\/\/[^ "]+$/.test(error.background_image)) {
-  //   errors.background_image = "The image is not a valid URL";
-  // }
+  if (!/^(http|https):\/\/[^ "]+$/.test(error.background_image)) {
+    errors.background_image = "The image is not a valid URL";
+  }
 
   if (!/^[a-zA-Z,\s]*$/.test(error.description)) {
     errors.description = "The description is invalid";

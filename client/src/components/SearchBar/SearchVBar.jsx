@@ -1,8 +1,7 @@
 import style from "../SearchBar/SearchBar.module.css";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getClean, getVideogames, searchName } from "../../redux/actions";
-import { useParams } from "react-router-dom";
+import { getClean, searchName } from "../../redux/actions";
 
 const SearchBar = () => {
   

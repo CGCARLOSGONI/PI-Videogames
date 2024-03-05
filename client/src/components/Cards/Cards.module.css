@@ -14,34 +14,48 @@
   /* justify-items: start; */
   justify-content: center;
   /* height: 100%; */
+  margin-bottom: 60px;
 }
-
 
 .titlePage {
-    position: absolute;
-    left: 45%;
-    top:860px;
-    padding-right: 30px;
-    padding-left: 30px;
-    background-color: rgb(6, 6, 49);
-    color:white;
+  position: absolute;
+  left: 47%;
+  top: 185%;
+  padding-right: 30px;
+  padding-left: 30px;
+  background-color: rgb(6, 6, 49);
+  color: white;
 }
 
-.buttonPrevious{
-    position: absolute;
-    font-size: 20px;
-    left: 764px;
-    height: 40px;
-    width: 100px;
-    /* background-color: transparent; */
-    top:880px
+.buttonPrevious {
+  position: absolute;
+  font-size: 20px;
+  left: 493px;
+  height: 40px;
+  width: 100px;
+  /* background-color: transparent; */
+  top: 188%;
 }
-.buttonNext{
-    position: absolute;
-    /* background-color: transparent; */
-    font-size: 20px;
-    left: 940px;
-    height: 40px;
-    width: 100px;
-    top:880px
+.buttonNext {
+  position: absolute;
+  /* background-color: transparent; */
+  font-size: 20px;
+  left: 670px;
+  height: 40px;
+  width: 100px;
+  top: 188%;
+}
+.loading {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: radial-gradient(farthest-side, #0a99f4 94%, #0000) top/8px 8px no-repeat, conic-gradient(#0000 30%, #0a99f4);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
+  animation: s3 1s infinite linear;
+}
+
+@keyframes s3 {
+  100% {
+    transform: rotate(1turn);
+  }
 }

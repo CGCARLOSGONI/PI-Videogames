@@ -19,35 +19,33 @@ const FormCreate = () => {
     platforms: [],
     released: "",
     rating: "",
-    genres: [], // Ahora guardaremos los IDs de los géneros seleccionados
+    genres: [],
   });
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
+    const { name, value, options } = event.target;
 
-    if (name === "genres") {
-      const selectedGenreIds = Array.from(event.target.selectedOptions, (option) => option.value);
+    if (name === "genres" || name === "platforms") {
+      const selectedValues = Array.from(options)
+        .filter((option) => option.selected)
+        .map((option) => option.value);
       setInputs({
         ...inputs,
-        [name]: selectedGenreIds,
+        [name]: selectedValues,
       });
     } else {
       setInputs({ ...inputs, [name]: value });
     }
 
-    // Validar solo el campo actual
     setErrors(validation({ ...inputs, [name]: value }));
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // Validar todos los campos
     const validations = validation(inputs);
     if (!validations.existErrors) {
       try {
-        // Enviamos la solicitud al servidor
         await dispatch(createVideogame(inputs));
-        // Si la solicitud es exitosa, mostramos un mensaje de éxito y navegamos a la página de inicio
         alert("Video game created successfully!");
         navigate("/home");
       } catch (error) {
@@ -64,59 +62,73 @@ const FormCreate = () => {
     <div className={style.container1}>
       <h1>Create a Video Game!</h1>
       <form onSubmit={handleSubmit}>
-        <div className={style.container2}>
-          <label htmlFor="name">Name</label>
-          <input type="text" name="name" value={inputs.name} onChange={handleChange} required />
-          {errors.name && <p className={style.errorMessage}>{errors.name}</p>}
+        <div className={style.formgroup}>
+          <label className={style.label} htmlFor="name">
+            Name :
+          </label>
+          <input className={style.input} type="text" name="name" value={inputs.name} onChange={handleChange} required />
+          {errors.name && <p className={style.errormessage}>{errors.name}</p>}
         </div>
-        <div>
-          <label htmlFor="background_image">URL</label>
-          <input type="text" name="background_image" value={inputs.background_image} onChange={handleChange} required />
-          {errors.background_image && <p className={style.errorMessage}>{errors.background_image}</p>}
+        <div className={style.formgroup}>
+          <label className={style.label} htmlFor="background_image">
+            URL :
+          </label>
+          <input className={style.input} type="text" name="background_image" value={inputs.background_image} onChange={handleChange} required />
+          {errors.background_image && <p className={style.errormessage}>{errors.background_image}</p>}
         </div>
-        <div>
-          <label htmlFor="description">Description</label>
-          <textarea name="description" value={inputs.description} onChange={handleChange} required></textarea>
-          {errors.description && <p className={style.errorMessage}>{errors.description}</p>}
+        <div className={style.formgroup}>
+          <label className={style.label} htmlFor="description">
+            Description :
+          </label>
+          <textarea className={style.textarea} name="description" value={inputs.description} onChange={handleChange} required></textarea>
+          {errors.description && <p className={style.errormessage}>{errors.description}</p>}
         </div>
-        <div>
-          <label htmlFor="released">Release Date</label>
-          <input type="date" name="released" value={inputs.released} onChange={handleChange} required />
-          {errors.released && <p className={style.errorMessage}>{errors.released}</p>}
+        <div className={style.formgroup}>
+          <label className={style.label} htmlFor="released">
+            Release Date :
+          </label>
+          <input className={style.input} type="date" name="released" value={inputs.released} onChange={handleChange} required />
+          {errors.released && <p className={style.errormessage}>{errors.released}</p>}
         </div>
-        <div>
-          <label htmlFor="rating">Rating</label>
-          <input type="number" name="rating" value={inputs.rating} onChange={handleChange} min="0" max="5" step="0.1" required />
-          {errors.rating && <p className={style.errorMessage}>{errors.rating}</p>}
+        <div className={style.formgroup}>
+          <label className={style.label} htmlFor="rating">
+            Rating :
+          </label>
+          <input className={style.input} type="number" name="rating" value={inputs.rating} onChange={handleChange} min="0" max="5" step="0.1" required />
+          {errors.rating && <p className={style.errormessage}>{errors.rating}</p>}
         </div>
-        <div>
-          <label htmlFor="genres">Genres</label>
-          <select multiple name="genres" value={inputs.genres} onChange={handleChange} required>
+        <div className={style.formgroup}>
+          <label className={style.label} htmlFor="genres">
+            Genres :
+          </label>
+          <select className={style.select} multiple name="genres" value={inputs.genres} onChange={handleChange} required>
             {genres.map((genre) => (
               <option key={genre.id} value={genre.id}>
                 {genre.name}
               </option>
             ))}
           </select>
-          {errors.genres && <p className={style.errorMessage}>{errors.genres}</p>}
+          {errors.genres && <p className={style.errormessage}>{errors.genres}</p>}
         </div>
-        <div>
-          <label htmlFor="platforms">Platforms:</label>
-          <select name="platforms" defaultValue="none" onChange={handleChange} id="platforms">
+        <div className={style.formgroup}>
+          <label className={style.label} htmlFor="platforms">
+            Platforms :
+          </label>
+          <select className={style.select} name="platforms" defaultValue="none" onChange={handleChange} id="platforms">
             <option value="none" disabled hidden>
               Select an Option
             </option>
-            {platforms.map((platform) => {
-              return (
-                <option key={platform} value={platform}>
-                  {platform}
-                </option>
-              );
-            })}
+            {platforms.map((platform) => (
+              <option key={platform} value={platform}>
+                {platform}
+              </option>
+            ))}
           </select>
-          {errors.platforms && <p className={style.errorMessage}>{errors.platforms}</p>}
+          {errors.platforms && <p className={style.errormessage}>{errors.platforms}</p>}
         </div>
-        <button type="submit">Create</button>
+        <button className={style.button} type="submit">
+          Create
+        </button>
       </form>
     </div>
   );
